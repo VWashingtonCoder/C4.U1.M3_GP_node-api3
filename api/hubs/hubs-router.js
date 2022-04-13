@@ -51,7 +51,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // in httpie, send numbers with key:=value
-  if(typeof req.body.name != 'string') {
+  if(typeof req.body.name != 'string' || req.body.name.trim() == '') {
     res.status(400).json({ message: 'name is required' });
     return;
   }
