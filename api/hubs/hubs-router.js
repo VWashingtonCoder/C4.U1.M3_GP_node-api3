@@ -33,77 +33,47 @@ router.get('/:id', ensureHubIdExists, (req, res, next) => {
   next(5);
 });
 
-router.post('/', validateHub, (req, res) => {
+router.post('/', validateHub, (req, res, next) => {
   Hubs.add(req.hub)
     .then(hub => {
       res.status(201).json(hub);
     })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error adding the hub',
-      });
-    });
+    .catch(error => next({ error }));
 });
 
-router.delete('/:id', ensureHubIdExists, (req, res) => {
+router.delete('/:id', ensureHubIdExists, (req, res, next) => {
   Hubs.remove(req.existingHub.id)
     .then(() => {
       res.status(200).json(req.existingHub);
     })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error removing the hub',
-      });
-    });
+    .catch(error => next({ error }));
 });
 
-router.put('/:id', validateHub, ensureHubIdExists, (req, res) => {
+router.put('/:id', validateHub, ensureHubIdExists, (req, res, next) => {
   Hubs.update(req.params.id, req.hub)
     .then(() => {
       res.status(200).json({ ...req.existingHub, ...req.hub });
       // res.status(200).json({ id: req.existingHub.id, name: req.hub.name });
     })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error updating the hub',
-      });
-    });
+    .catch(error => next({ error }));
 });
 
-router.get('/:id/messages', ensureHubIdExists, (req, res) => {
+router.get('/:id/messages', ensureHubIdExists, (req, res, next) => {
   Hubs.findHubMessages(req.params.id)
     .then(messages => {
       res.status(200).json(messages);
     })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error getting the messages for the hub',
-      });
-    });
+    .catch(error => next({ error }));
 });
 
-router.post('/:id/messages', ensureHubIdExists, (req, res) => {
+router.post('/:id/messages', ensureHubIdExists, (req, res, next) => {
   const messageInfo = { ...req.body, hub_id: req.params.id };
 
   Messages.add(messageInfo)
     .then(message => {
       res.status(201).json(message);
     })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error adding message to the hub',
-      });
-    });
+    .catch(error => next({ error }));
 });
 
 module.exports = router;
