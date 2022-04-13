@@ -38,6 +38,7 @@ server.get('/', (req, res) => {
 server.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     message: err.message || 'Error retrieving the hubs',
+    stack: err.error.stack,
   });
 });
 

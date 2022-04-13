@@ -24,7 +24,7 @@ function rootPathGetHandler(req, res, next) {
       res.status(200).json(hubs);
     })
     .catch(error => {
-      next({ status: 400, message: 'asdf' });
+      next({ error });
     });
 }
 
