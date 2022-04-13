@@ -16,18 +16,14 @@ function moodyGatekeeper(req, res, next) {
   }
 }
 
-function rootPathGetHandler(req, res) {
+function rootPathGetHandler(req, res, next) {
   console.log(req.timestamp);
   Hubs.find(req.query)
     .then(hubs => {
       res.status(200).json(hubs);
     })
     .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error retrieving the hubs',
-      });
+      next({ message: 'Error retrieving the hubs', error });
     });
 }
 
