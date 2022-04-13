@@ -67,8 +67,8 @@ router.delete('/:id', ensureHubIdExists, (req, res) => {
 
 router.put('/:id', validateHub, ensureHubIdExists, (req, res) => {
   Hubs.update(req.params.id, req.hub)
-    .then(hub => {
-      res.status(200).json(hub);
+    .then(() => {
+      res.status(200).json({ ...req.existingHub, ...req.hub });
     })
     .catch(error => {
       // log error to server
