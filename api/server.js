@@ -16,7 +16,12 @@ function add_timestamp(req, res, next) {
   next();
 }
 
-server.use(add_timestamp);
+function log_a_thing(req, res, next) {
+  console.log("here's a thing");
+  next();
+}
+
+server.use(add_timestamp, log_a_thing);
 
 server.use(express.json());
 
