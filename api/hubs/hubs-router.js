@@ -34,7 +34,7 @@ function rootPathGetHandler(req, res) {
 router.get('/', moodyGatekeeper, rootPathGetHandler);
 
 router.get('/:id', ensureHubIdExists, (req, res) => {
-  res.json(req.hub);
+  res.json(req.existingHub);
 });
 
 router.post('/', validateHub, (req, res) => {
@@ -52,9 +52,9 @@ router.post('/', validateHub, (req, res) => {
 });
 
 router.delete('/:id', ensureHubIdExists, (req, res) => {
-  Hubs.remove(req.hub.id)
+  Hubs.remove(req.existingHub.id)
     .then(() => {
-      res.status(200).json(req.hub);
+      res.status(200).json(req.existingHub);
     })
     .catch(error => {
       // log error to server
@@ -65,14 +65,10 @@ router.delete('/:id', ensureHubIdExists, (req, res) => {
     });
 });
 
-router.put('/:id', validateHub, (req, res) => {
+router.put('/:id', validateHub, ensureHubIdExists, (req, res) => {
   Hubs.update(req.params.id, req.hub)
     .then(hub => {
-      if (hub) {
-        res.status(200).json(hub);
-      } else {
-        res.status(404).json({ message: 'The hub could not be found' });
-      }
+      res.status(200).json(hub);
     })
     .catch(error => {
       // log error to server
