@@ -5,6 +5,15 @@ const Messages = require('../messages/messages-model.js');
 
 const router = express.Router();
 
+function moodyGatekeeper(req, res, next) {
+  let r = Math.floor(Math.random() * 3);
+  if(r == 0) {
+    res.status(403).json({message: "YOU SHALL NOT PASS!"});
+  } else {
+    next();
+  }
+}
+
 router.get('/', (req, res) => {
   console.log(req.timestamp);
   Hubs.find(req.query)
