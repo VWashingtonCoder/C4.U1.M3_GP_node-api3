@@ -13,7 +13,22 @@ function validateHub(req, res, next) {
 
 
 function ensureHubIdExists(req, res, next) {
-
+	Hubs.findById(req.params.id)
+		.then(hub => {
+			if (hub) {
+				req.hub = hub;
+				next();
+			} else {
+				res.status(404).json({ message: 'Hub not found' });
+			}
+		})
+		.catch(error => {
+			// log error to server
+			console.log(error);
+			res.status(500).json({
+				message: 'Error retrieving the hub',
+			});
+		});
 }
 
 
