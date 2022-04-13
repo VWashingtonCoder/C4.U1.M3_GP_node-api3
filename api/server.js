@@ -11,10 +11,12 @@ const hubsRouter = require('./hubs/hubs-router.js');
 
 const server = express();
 
-server.use((req, res, next) => {
+function add_timestamp(req, res, next) {
   req.timestamp = new Date();
   next();
-});
+}
+
+server.use(add_timestamp);
 
 server.use(express.json());
 
