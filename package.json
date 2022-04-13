@@ -19,6 +19,7 @@
     "dependencies": {
         "@vscode/sqlite3": "5.0.7",
         "express": "^4.17.3",
+        "helmet": "^5.0.2",
         "knex": "^1.0.4"
     }
 }
