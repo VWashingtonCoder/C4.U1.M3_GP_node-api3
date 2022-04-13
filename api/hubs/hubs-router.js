@@ -14,7 +14,7 @@ function moodyGatekeeper(req, res, next) {
   }
 }
 
-router.get('/', (req, res) => {
+router.get('/', moodyGatekeeper, (req, res) => {
   console.log(req.timestamp);
   Hubs.find(req.query)
     .then(hubs => {
