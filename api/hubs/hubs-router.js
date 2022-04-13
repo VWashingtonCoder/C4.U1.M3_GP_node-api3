@@ -14,7 +14,7 @@ function moodyGatekeeper(req, res, next) {
   }
 }
 
-router.get('/', moodyGatekeeper, (req, res) => {
+function rootPathGetHandler(req, res) {
   console.log(req.timestamp);
   Hubs.find(req.query)
     .then(hubs => {
@@ -27,7 +27,9 @@ router.get('/', moodyGatekeeper, (req, res) => {
         message: 'Error retrieving the hubs',
       });
     });
-});
+}
+
+router.get('/', moodyGatekeeper, rootPathGetHandler);
 
 router.get('/:id', (req, res) => {
   Hubs.findById(req.params.id)
