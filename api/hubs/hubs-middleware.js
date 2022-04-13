@@ -34,4 +34,5 @@ function ensureHubIdExists(req, res, next) {
 
 module.exports = {
 	validateHub,
+	ensureHubIdExists,
 };
