@@ -93,12 +93,12 @@ router.get('/:id/messages', ensureHubIdExists, (req, res) => {
     });
 });
 
-router.post('/:id/messages', (req, res) => {
+router.post('/:id/messages', ensureHubIdExists, (req, res) => {
   const messageInfo = { ...req.body, hub_id: req.params.id };
 
   Messages.add(messageInfo)
     .then(message => {
-      res.status(210).json(message);
+      res.status(201).json(message);
     })
     .catch(error => {
       // log error to server
