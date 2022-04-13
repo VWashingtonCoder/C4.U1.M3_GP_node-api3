@@ -1,7 +1,7 @@
 const express = require('express');
 
 const Hubs = require('./hubs-model.js');
-const { validateHub } = require('./hubs-middleware.js');
+const { validateHub, ensureHubIdExists } = require('./hubs-middleware.js');
 const Messages = require('../messages/messages-model.js');
 
 const router = express.Router();
@@ -33,22 +33,8 @@ function rootPathGetHandler(req, res) {
 
 router.get('/', moodyGatekeeper, rootPathGetHandler);
 
-router.get('/:id', (req, res) => {
-  Hubs.findById(req.params.id)
-    .then(hub => {
-      if (hub) {
-        res.status(200).json(hub);
-      } else {
-        res.status(404).json({ message: 'Hub not found' });
-      }
-    })
-    .catch(error => {
-      // log error to server
-      console.log(error);
-      res.status(500).json({
-        message: 'Error retrieving the hub',
-      });
-    });
+router.get('/:id', ensureHubIdExists, (req, res) => {
+  res.json(req.hub);
 });
 
 router.post('/', validateHub, (req, res) => {
@@ -65,7 +51,7 @@ router.post('/', validateHub, (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', ensureHubIdExists, (req, res) => {
   Hubs.remove(req.params.id)
     .then(count => {
       if (count > 0) {
