@@ -14,7 +14,8 @@ const server = express();
 server.use(express.json());
 
 server.use((req, res, next) => {
-  res.send('hello');
+  console.log('did a thing');
+  next();
 });
 
 server.use('/api/hubs', hubsRouter);
