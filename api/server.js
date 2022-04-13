@@ -14,7 +14,7 @@ const server = express();
 server.use(express.json());
 
 server.use((req, res, next) => {
-  console.log('did a thing');
+  console.log(req.body);
   next();
 });
 
