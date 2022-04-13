@@ -89,7 +89,15 @@ router.delete('/:id', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  Hubs.update(req.params.id, req.body)
+  // in httpie, send numbers with key:=value
+  if(typeof req.body.name != 'string' || req.body.name.trim() == '') {
+    res.status(400).json({ message: 'name is required' });
+    return;
+  }
+  const hub = { name: req.body.name.trim() };
+
+
+  Hubs.update(req.params.id, hub)
     .then(hub => {
       if (hub) {
         res.status(200).json(hub);
