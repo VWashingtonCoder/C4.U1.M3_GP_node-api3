@@ -53,6 +53,7 @@ router.post('/', (req, res) => {
   // in httpie, send numbers with key:=value
   if(typeof req.body.name != 'string') {
     res.status(400).json({ message: 'name is required' });
+    return;
   }
   Hubs.add(req.body)
     .then(hub => {
