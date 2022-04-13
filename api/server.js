@@ -35,7 +35,9 @@ server.get('/', (req, res) => {
   `);
 });
 
-server.use((value, req, res, next) => {});
+server.use((value, req, res, next) => {
+  console.log("my extra value:", value);
+});
 
 server.use('*', (req, res) => {
   // catch all 404 errors middleware
