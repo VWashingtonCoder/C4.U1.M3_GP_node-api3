@@ -26,7 +26,7 @@ server.use(add_timestamp, log_a_thing);
 
 server.use(express.json());
 
-// server.use(helmet());
+server.use(helmet());
 
 server.use('/api/hubs', hubsRouter);
 
