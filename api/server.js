@@ -39,6 +39,7 @@ server.use(morgan('dev'));
 
 
 server.use(loggy_thingy('asdf'));
+server.use(loggy_thingy("here's another one!"));
 
 server.use('/api/hubs', hubsRouter);
 
