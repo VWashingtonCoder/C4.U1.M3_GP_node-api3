@@ -16,7 +16,7 @@ function ensureHubIdExists(req, res, next) {
 	Hubs.findById(req.params.id)
 		.then(hub => {
 			if (hub) {
-				req.hub = hub;
+				req.existingHub = hub;
 				next();
 			} else {
 				res.status(404).json({ message: 'Hub not found' });
