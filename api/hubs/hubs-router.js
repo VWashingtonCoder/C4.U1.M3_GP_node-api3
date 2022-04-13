@@ -55,7 +55,9 @@ router.post('/', (req, res) => {
     res.status(400).json({ message: 'name is required' });
     return;
   }
-  Hubs.add(req.body)
+  const hub = { name: req.body.name.trim() };
+
+  Hubs.add(hub)
     .then(hub => {
       res.status(201).json(hub);
     })
