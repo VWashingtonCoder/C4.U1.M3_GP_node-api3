@@ -20,14 +20,15 @@ function rootPathGetHandler(req, res, next) {
   console.log(req.timestamp);
   Hubs.find(req.query)
     .then(hubs => {
+      throw new Error("blah");
       res.status(200).json(hubs);
     })
     .catch(error => {
-      next({ message: 'Error retrieving the hubs', error });
+      next({ message: 'Error retrieving the hubs!!', error });
     });
 }
 
-router.get('/', moodyGatekeeper, rootPathGetHandler);
+router.get('/', /*moodyGatekeeper,*/ rootPathGetHandler);
 
 router.get('/:id', ensureHubIdExists, (req, res, next) => {
   res.json(req.existingHub);
