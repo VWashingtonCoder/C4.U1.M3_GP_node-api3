@@ -23,6 +23,12 @@ function log_a_thing(req, res, next) {
   next();
 }
 
+
+const loggy_thingy = arg => (req, res, next) => {
+  console.log(arg);
+  next();
+};
+
 server.use(add_timestamp, log_a_thing);
 
 server.use(express.json());
@@ -30,6 +36,9 @@ server.use(express.json());
 server.use(helmet());
 
 server.use(morgan('dev'));
+
+
+server.use(loggy_thingy('asdf'));
 
 server.use('/api/hubs', hubsRouter);
 
