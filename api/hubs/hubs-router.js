@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Hubs = require('./hubs-model.js');
+const { validateHub } = require('./hubs-middleware.js');
 const Messages = require('../messages/messages-model.js');
 
 const router = express.Router();
