@@ -15,8 +15,8 @@ server.use(express.json());
 
 server.use((req, res, next) => {
   console.log('did a thing');
-  // res
-  // next();
+  res.json(5);
+  next();
 });
 
 server.use('/api/hubs', hubsRouter);
