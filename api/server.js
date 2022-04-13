@@ -12,7 +12,7 @@ const hubsRouter = require('./hubs/hubs-router.js');
 const server = express();
 
 server.use((req, res, next) => {
-  console.log(req.body);
+  console.log(req);
   next();
 });
 
