@@ -11,7 +11,7 @@ function validateHub(req, res, next) {
     res.status(400).json({ message: 'name is required' });
     return;
   }
-  
+
   req.hub = { name: req.body.name.trim() };
   next();
 }
@@ -62,15 +62,8 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-  // in httpie, send numbers with key:=value
-  if(typeof req.body.name != 'string' || req.body.name.trim() == '') {
-    res.status(400).json({ message: 'name is required' });
-    return;
-  }
-  const hub = { name: req.body.name.trim() };
-
-  Hubs.add(hub)
+router.post('/', validateHub, (req, res) => {
+  Hubs.add(req.hub)
     .then(hub => {
       res.status(201).json(hub);
     })
@@ -101,16 +94,8 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
-  // in httpie, send numbers with key:=value
-  if(typeof req.body.name != 'string' || req.body.name.trim() == '') {
-    res.status(400).json({ message: 'name is required' });
-    return;
-  }
-  const hub = { name: req.body.name.trim() };
-
-
-  Hubs.update(req.params.id, hub)
+router.put('/:id', validateHub, (req, res) => {
+  Hubs.update(req.params.id, req.hub)
     .then(hub => {
       if (hub) {
         res.status(200).json(hub);
