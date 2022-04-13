@@ -35,8 +35,8 @@ server.get('/', (req, res) => {
   `);
 });
 
-server.use((value, req, res, next) => {
-  console.log("my extra value:", value);
+server.use((err, req, res, next) => {
+  res.status(err.status || 500).json({ message: err.message });
 });
 
 server.use('*', (req, res) => {
