@@ -23,7 +23,9 @@ function rootPathGetHandler(req, res, next) {
       throw new Error("blah");
       res.status(200).json(hubs);
     })
-    .catch(error => next({ error }));
+    .catch(error => {
+      next({ status: 400, message: 'asdf' });
+    });
 }
 
 router.get('/', /*moodyGatekeeper,*/ rootPathGetHandler);
