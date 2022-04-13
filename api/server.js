@@ -6,6 +6,7 @@
 //     2. pass on the control to the next middleware
 
 const express = require('express'); // importing a CommonJS module
+const helmet = require('helmet');
 
 const hubsRouter = require('./hubs/hubs-router.js');
 
@@ -24,6 +25,8 @@ function log_a_thing(req, res, next) {
 server.use(add_timestamp, log_a_thing);
 
 server.use(express.json());
+
+// server.use(helmet());
 
 server.use('/api/hubs', hubsRouter);
 
