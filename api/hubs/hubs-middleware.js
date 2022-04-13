@@ -1,3 +1,5 @@
+const Hubs = require('./hubs-model');
+
 function validateHub(req, res, next) {
 	// in httpie, send numbers with key:=value
 	if (typeof req.body.name != 'string' || req.body.name.trim() == '') {
@@ -10,7 +12,9 @@ function validateHub(req, res, next) {
 }
 
 
+function ensureHubIdExists(req, res, next) {
 
+}
 
 
 module.exports = {
