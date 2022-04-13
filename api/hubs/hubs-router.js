@@ -79,7 +79,7 @@ router.put('/:id', validateHub, ensureHubIdExists, (req, res) => {
     });
 });
 
-router.get('/:id/messages', (req, res) => {
+router.get('/:id/messages', ensureHubIdExists, (req, res) => {
   Hubs.findHubMessages(req.params.id)
     .then(messages => {
       res.status(200).json(messages);
