@@ -50,6 +50,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
+  // in httpie, send numbers with key:=value
+  if(typeof req.body.name == 'string')
   Hubs.add(req.body)
     .then(hub => {
       res.status(201).json(hub);
