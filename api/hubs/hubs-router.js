@@ -52,13 +52,9 @@ router.post('/', validateHub, (req, res) => {
 });
 
 router.delete('/:id', ensureHubIdExists, (req, res) => {
-  Hubs.remove(req.params.id)
-    .then(count => {
-      if (count > 0) {
-        res.status(200).json({ message: 'The hub has been nuked' });
-      } else {
-        res.status(404).json({ message: 'The hub could not be found' });
-      }
+  Hubs.remove(req.hub.id)
+    .then(() => {
+      res.status(200).json(req.hub);
     })
     .catch(error => {
       // log error to server
