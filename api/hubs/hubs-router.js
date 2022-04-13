@@ -69,6 +69,7 @@ router.put('/:id', validateHub, ensureHubIdExists, (req, res) => {
   Hubs.update(req.params.id, req.hub)
     .then(() => {
       res.status(200).json({ ...req.existingHub, ...req.hub });
+      // res.status(200).json({ id: req.existingHub.id, name: req.hub.name });
     })
     .catch(error => {
       // log error to server
