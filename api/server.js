@@ -35,6 +35,8 @@ server.get('/', (req, res) => {
   `);
 });
 
+server.use((value, req, res, next) => {});
+
 server.use('*', (req, res) => {
   // catch all 404 errors middleware
   res.status(404).json({ message: `${req.method} ${req.baseUrl} not found!` });
