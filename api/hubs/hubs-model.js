@@ -39,10 +39,11 @@ function remove(id) {
     .del();
 }
 
-function update(id, changes) {
-  return db('hubs')
+async function update(id, changes) {
+  await db('hubs')
     .where({ id })
     .update(changes, '*');
+  return findById(id);
 }
 
 function findHubMessages(hubId) {
