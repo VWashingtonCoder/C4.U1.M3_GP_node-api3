@@ -5,6 +5,17 @@ const Messages = require('../messages/messages-model.js');
 
 const router = express.Router();
 
+function validateHub(req, res, next) {
+  // in httpie, send numbers with key:=value
+  if(typeof req.body.name != 'string' || req.body.name.trim() == '') {
+    res.status(400).json({ message: 'name is required' });
+    return;
+  }
+  const hub = { name: req.body.name.trim() };
+}
+
+
+
 function moodyGatekeeper(req, res, next) {
   let r = Math.floor(Math.random() * 3);
   if(r == 0) {
