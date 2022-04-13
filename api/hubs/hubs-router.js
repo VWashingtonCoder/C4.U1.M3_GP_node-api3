@@ -30,7 +30,6 @@ router.get('/', /*moodyGatekeeper,*/ rootPathGetHandler);
 
 router.get('/:id', ensureHubIdExists, (req, res, next) => {
   res.json(req.existingHub);
-  next(5);
 });
 
 router.post('/', validateHub, (req, res, next) => {
