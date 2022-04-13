@@ -11,7 +11,9 @@ function validateHub(req, res, next) {
     res.status(400).json({ message: 'name is required' });
     return;
   }
-  const hub = { name: req.body.name.trim() };
+  
+  req.hub = { name: req.body.name.trim() };
+  next();
 }
 
 
